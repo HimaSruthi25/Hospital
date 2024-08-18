@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-
+const cors = require('cors');
 const port = 3020;
 
 const app = express();
 
+app.use(cors({
+    origin: '*',  // This allows all origins; for production, you might want to restrict this
+  }));
 
 app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/form');
+mongoose.connect(process.env.MONGO_URI ||'mongodb://127.0.0.1:27017/form');
 const db = mongoose.connection
 db.once('open', () => {
     console.log("Mongodb connection successful");
