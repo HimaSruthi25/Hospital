@@ -1,9 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
+const cors = require('cors');
 const port = 3020
 
 const app= express();
+
+app.use(cors());
 app.use(express.static(__dirname));
 app.use(express.urlencoded({extended:true}))
 
@@ -58,7 +61,7 @@ app.get('/',(req,res)=>{
 
 app.post('/post', async (req,res) => {
 
-    console.log("POST /pst route hit");
+    console.log("POST /post route hit");
     const { Name,AgeSex,Reason,MITRAL_VALVE,AORTIC_VALVE,TRICUSPID_VALVE,RIGHT_ATRIUM,RIGHT_VENTRICLE,
         LEFT_ATRIUM,LEFT_VENTRICLE,ED,ESD,IVSD,PWD,EF,FS,IAS,IVS,AORTA,PULMONARY_ARTERY,PERICARDIUM,
         INTRACARDIAC_MASSES,IVC,PULMONARY_VEINS,MR,AR,TR,PR,MITRAL,AORTIC,PULMONARY,
@@ -106,5 +109,5 @@ app.post('/post', async (req,res) => {
 });
 
 app.listen(port,() => {
-    console.log("Server started")
-})
+    console.log(`Server started on https://localhost:${port}`);
+});
